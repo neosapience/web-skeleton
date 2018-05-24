@@ -1,0 +1,9 @@
+**/.idea
+.wav_data
+
+**/*.pyc
+**/*.wav
+**/*.png
+**/.DS_Store
+
+**/node_modules

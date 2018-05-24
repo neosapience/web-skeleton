@@ -1,0 +1,31 @@
+version: '3.4'
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
+
+services:
+  mongo:
+    ports:
+      - 27017:27017
+
+  frontend:
+    image: ${COMPOSE_PROJECT_NAME}-frontend:${TAG_FRONTEND}-local
+
+  api: 
+    volumes:
+      - ./api:/code
+      - ${API_SECRET}:/run/secrets/api_secret
+    ports:
+      - 5000:5000
+
+  worker:
+    volumes:
+      - ./api:/code
+      - ${API_SECRET}:/run/secrets/api_secret

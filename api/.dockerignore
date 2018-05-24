@@ -1,0 +1,10 @@
+**/__pycache__
+**/.idea
+**/generated
+.wav_data
+.pytest_cache
+
+**/*.pyc
+**/*.wav
+**/*.png
+**/.DS_Store

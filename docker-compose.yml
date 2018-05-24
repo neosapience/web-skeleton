@@ -1,0 +1,52 @@
+version: '3.4'
+networks:
+  backend:
+  frontend:
+
+volumes:
+  mongo-data:
+
+services:
+  mongo:
+    image: mvertes/alpine-mongo:3.6.3-0
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - backend
+
+  redis:
+    image: redis:alpine
+    networks:
+      - backend
+
+  frontend:
+    image: ${COMPOSE_PROJECT_NAME}-frontend:${TAG_FRONTEND}-dev
+    networks:
+      - frontend
+    ports:
+      - 80:80
+    depends_on:
+      - api
+
+  api: 
+    image: ${COMPOSE_PROJECT_NAME}-api:${TAG_API}
+    command: gunicorn --log-level=debug --workers=2
+    networks:
+      - frontend
+      - backend
+    environment:
+      - SECRET_KEY_FILE=/run/secrets/api_secret
+    depends_on:
+      - mongo
+      - redis
+
+  worker:
+    image: ${COMPOSE_PROJECT_NAME}-api:${TAG_API}
+    command: celery -A task.celery_app worker
+    networks:
+      - backend
+    environment:
+      - SECRET_KEY_FILE=/run/secrets/api_secret
+    depends_on:
+      - redis
+
