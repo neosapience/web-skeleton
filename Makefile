@@ -1,5 +1,6 @@
 docker-compose-dev := docker-compose -f docker-compose.yml -f docker-compose.dev.yml
 docker-compose-prod := docker-compose -f docker-compose.yml -f docker-compose.prod.yml
+stack-name := appname
 
 up:
 	@${docker-compose-dev} up -d
@@ -15,6 +16,12 @@ ps:
 
 deploy:
 	@${docker-compose-prod} config > deploy.yml
+
+stack-deploy:
+	@docker stack deploy -c deploy.yml ${stack-name}
+
+stack-rm:
+	@docker stack rm ${stack-name}
 
 build:
 	@make -C api build
