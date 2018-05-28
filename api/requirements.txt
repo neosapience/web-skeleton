@@ -6,3 +6,4 @@ celery
 redis
 flower
 requests
+pytest
