@@ -1,4 +1,4 @@
-FROM nginx:1.13-alpine
+FROM nginx:1.15.7-alpine
 
 COPY ./nginx /etc/nginx
 COPY ./app/dist /usr/frontend

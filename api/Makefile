@@ -12,7 +12,9 @@ dev:
 		--name ${name} \
 		--network ${project}_backend \
 		-v ${pwd}:/code \
+		-v ${pwd}/../secrets/api_secret_dev:/run/secrets/api_secret \
 		-p 5000:5000 \
+		-e SECRET_KEY_FILE=/run/secrets/api_secret \
 		${name}:${tag}
 
 test:
@@ -20,9 +22,10 @@ test:
 		--name ${name} \
 		--network ${project}_backend \
 		-v ${pwd}:/code \
-		-p 5000:5000 \
+		-v ${pwd}/../secrets/api_secret_dev:/run/secrets/api_secret \
+		-e SECRET_KEY_FILE=/run/secrets/api_secret \
 		${name}:${tag} \
-		python -m unittest discover 
+		pytest
 
 ls:
 	@docker images ${name}

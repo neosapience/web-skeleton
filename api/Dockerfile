@@ -1,4 +1,4 @@
-FROM python:3.6-alpine
+FROM python:3.6-alpine3.8
 
 WORKDIR /code
 COPY requirements.txt .

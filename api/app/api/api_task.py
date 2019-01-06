@@ -1,10 +1,11 @@
-from flask import jsonify, request, abort, current_app
-from app import core
+from .bp import api_bp
 from task.mytask import req_url
+
+from flask import jsonify, request, abort, current_app
 from celery.result import AsyncResult
 
 
-@core.route('/tasks', methods=['POST'])
+@api_bp.route('/tasks', methods=['POST'])
 def task_post():
     data = request.get_json(force=True)
     if 'task' not in data:
@@ -17,31 +18,30 @@ def task_post():
     })
 
     if doc_result.acknowledged:
-        return jsonify({'data': 'ok'})
+        return jsonify({'result': 'ok'})
     else:
         abort(400)
 
 
-@core.route('/tasks', methods=['GET'])
+@api_bp.route('/tasks', methods=['GET'])
 def task_get():
     myapp = current_app
     db = myapp.extensions['pymongo']['MONGO'][1]
 
     docs = list(db.tasks.find({}, {'_id':0}))
-    return jsonify({'tasks': docs})
+    return jsonify({'result': docs})
 
 
-@core.route('/async', methods=['GET'])
+@api_bp.route('/async', methods=['GET'])
 def async_url():
     url = request.args.get('url')
     r = req_url.delay(url)
-    return jsonify({'task_id': r.id})
+    return jsonify({'result': {'task_id': r.id}})
 
 
-@core.route('/async/<task_id>', methods=['GET'])
+@api_bp.route('/async/<task_id>', methods=['GET'])
 def async_get_task(task_id):
     res = AsyncResult(task_id)
     if res.successful():
-        return jsonify({'status': res.status, 'result': res.result})
-    return jsonify({'status': res.status})
-
+        return jsonify({'result': {'status': res.status, 'result': res.result}})
+    return jsonify({'result': {'status': res.status}})

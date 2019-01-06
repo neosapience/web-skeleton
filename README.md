@@ -1,4 +1,7 @@
 
+## monitoring
+* flower for celery
+* mongo-express for mongo
 
 ## code tree
 ```
@@ -12,22 +15,24 @@
 │   ├── api_secret_dev
 │   └── api_secret_live
 ├── api
-│   ├── Dockerfile
-│   ├── Makefile
 │   ├── app
 │   │   ├── __init__.py
-│   │   ├── api_task.py
-│   │   ├── core.py
-│   │   └── settings.py
+│   │   └── api
+│   │       ├── __init__.py
+│   │       ├── api_task.py
+│   │       └── bp.py
 │   ├── task
 │   │   ├── __init__.py
+│   │   ├── init.py
 │   │   └── mytask.py
 │   ├── tests
 │   │   ├── __init__.py
 │   │   └── test_app.py
+│   ├── Dockerfile
+│   ├── Makefile
 │   ├── docker-entrypoint.sh
-│   ├── manage.py
 │   ├── requirements.txt
+│   ├── app_settings.py
 │   └── wsgi.py
 └── frontend
     ├── Dockerfile
