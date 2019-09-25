@@ -1,4 +1,4 @@
-name := appname-frontend
+name := appname-ui
 tag := 0.0.1
 pwd := $(shell pwd)
 
@@ -6,7 +6,7 @@ docker-run-cmd := docker run --name ${name}-dev --rm -it -p 8080:8080 -v ${pwd}/
 docker-cmd := docker run --rm -it -v ${pwd}/app:/src -w /src node:alpine
 
 fake:
-	docker build . -t ${name}:${tag}
+	docker build . -t ${name}:dev
 
 default: install build
 

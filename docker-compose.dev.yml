@@ -1,11 +1,5 @@
 version: '3.7'
 
-networks:
-  backend:
-    driver: bridge
-  frontend:
-    driver: bridge
-
 volumes:
   mongo-data:
     driver: local
@@ -15,11 +9,11 @@ services:
     ports:
       - 27017:27017
 
-  frontend:
+  ui:
     ports:
       - 80:80
 
-  api: 
+  api:
     volumes:
       - ./api:/code
       - ./secrets/api_secret_dev:/run/secrets/api_secret

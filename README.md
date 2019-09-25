@@ -1,3 +1,8 @@
+## build images && test
+```
+make build
+make test
+```
 
 ## monitoring
 * flower for celery
@@ -10,7 +15,7 @@
 ├── Makefile
 ├── docker-compose.yml
 ├── docker-compose.dev.yml
-├── docker-compose.prod.yml
+├── docker-compose.test.yml
 ├── secrets
 │   ├── api_secret_dev
 │   └── api_secret_live

@@ -1,27 +1,22 @@
-docker-compose-dev := docker-compose -f docker-compose.yml -f docker-compose.dev.yml
-docker-compose-prod := docker-compose -f docker-compose.yml -f docker-compose.prod.yml
-stack-name := appname
+docker-compose-test := docker-compose -f docker-compose.yml -f docker-compose.prod.yml
 
 up:
-	@${docker-compose-dev} up -d
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+test:
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.test.yml up -d
+
+logs:
+	@docker-compose logs api
 
 down:
-	@${docker-compose-dev} down
+	@docker-compose down
 
 stop:
-	@${docker-compose-dev} stop ${service}
+	@docker-compose stop ${service}
 
 ps:
-	@${docker-compose-dev} ps
-
-deploy:
-	@${docker-compose-prod} config > deploy.yml
-
-stack-deploy:
-	@docker stack deploy -c deploy.yml ${stack-name}
-
-stack-rm:
-	@docker stack rm ${stack-name}
+	@docker-compose ps
 
 build:
 	@make -C api build
