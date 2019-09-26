@@ -1,8 +1,13 @@
-## build images && test
-```
+# rest-api/spa-ui web skeleton
+
+## build images && test api
+```bash
 make build
-make test
+make test && make logs
 ```
+
+## deploy
+[check in here](/deploy)
 
 ## monitoring
 * flower for celery

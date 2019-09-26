@@ -1,5 +1,4 @@
-project := appname
-name := ${project}-api
+name := neosapience/appname-api
 tag := 0.0.1
 pwd := $(shell pwd)
 
@@ -7,7 +6,7 @@ pwd := $(shell pwd)
 build:
 	@docker build . -t ${name}:dev
 
-build-tag:
+build-dist:
 	@docker build . -t ${name}:${tag}
 
 ls:

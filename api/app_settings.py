@@ -10,7 +10,7 @@ def read_secret_key():
 class Config(object):
     SECRET_KEY = read_secret_key()
     MONGO_HOST = os.environ.get('MONGO_HOST', 'mongo')
-    MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'light')
+    MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'appname')
     MONGO_USER = os.environ.get('MONGO_USERNAME', '')
     MONGO_PASS = os.environ.get('MONGO_PASSWORD', '')
     MONGO_RSNAME = os.environ.get('MONGO_RSNAME', '')

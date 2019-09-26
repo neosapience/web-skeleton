@@ -13,13 +13,13 @@ services:
     image: redis:alpine
 
   ui:
-    image: appname-ui:dev
+    image: neosapience/appname-ui:dev
     depends_on:
       - api
 
   api: 
-    image: appname-api:dev
-    command: gunicorn --log-level=debug --workers=2
+    image: neosapience/appname-api:dev
+    command: gunicorn --log-level=debug -k gevent
     environment:
       - SECRET_KEY_FILE=/run/secrets/api_secret
     depends_on:

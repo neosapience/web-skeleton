@@ -18,7 +18,7 @@ def task_post():
     })
 
     if doc_result.acknowledged:
-        return jsonify({'result': 'ok'})
+        return jsonify({'result': str(doc_result.inserted_id)})
     else:
         abort(400)
 

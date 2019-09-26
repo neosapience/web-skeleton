@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: appname-ui
+spec:
+  selector:
+    app: appname-ui
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: appname-ui
+  name: appname-ui
+spec:
+  selector:
+    matchLabels:
+      app: appname-ui
+  template:
+    metadata:
+      labels:
+        app: appname-ui
+    spec:
+      containers:
+      - name: appname-ui
+        imagePullPolicy: Always
+        image: neosapience/appname-ui:0.0.1
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi

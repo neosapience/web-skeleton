@@ -10,7 +10,7 @@ class TestApp(unittest.TestCase):
         self.cli = app.test_client()
 
     def test_app(self):
-        r = self.cli.get('/api/')
+        r = self.cli.get('/api/health')
         self.assertEqual(200, r.status_code)
 
     def test_post_task(self):

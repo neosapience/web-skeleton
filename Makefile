@@ -7,7 +7,7 @@ test:
 	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.test.yml up -d
 
 logs:
-	@docker-compose logs api
+	@docker-compose logs -f api
 
 down:
 	@docker-compose down
@@ -20,7 +20,11 @@ ps:
 
 build:
 	@make -C api build
-	@make -C frontend fake
+	@make -C frontend build
+
+dist:
+	@make -C api build-dist
+	@make -C frontend build-dist
 
 push:
 	@make -C api push

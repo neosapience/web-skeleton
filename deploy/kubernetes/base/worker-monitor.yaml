@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: appname-worker-monitor
+spec:
+  ports:
+  - port: 80
+    targetPort: 5555
+    protocol: TCP
+  selector:
+    app: appname-worker-monitor
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: appname-worker-monitor
+  name: appname-worker-monitor
+spec:
+  selector:
+    matchLabels:
+      app: appname-worker-monitor
+  template:
+    metadata:
+      labels:
+        app: appname-worker-monitor
+    spec:
+      volumes:
+      - name: api-secret
+        secret:
+          defaultMode: 256
+          secretName: api-secret
+      containers:
+      - name: appname-worker-monitor
+        args: ["celery", "-A", "task", "flower"]
+        envFrom:
+        - configMapRef:
+            name: appname-api-config
+        imagePullPolicy: Always
+        image: neosapience/appname-api:0.0.1
+        ports:
+        - containerPort: 5555
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 200m
+            memory: 300Mi
+          limits:
+            cpu: 200m
+            memory: 300Mi
+        volumeMounts:
+        - mountPath: /run/secrets/app
+          name: api-secret
+          readOnly: true
+        env:
+        - name: SECRET_KEY_FILE
+          value: /run/secrets/app/secret-api
