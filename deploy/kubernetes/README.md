@@ -27,12 +27,11 @@ $ kubectl apply -f database/mgo-ui.yaml
 
 ## Directories
 
-### /base
+### /app/base
 base kustomize recipe
 
-### /overlays
+### /app/overlays
 example for override kustomize recipe
-* nginx ingress 
 
 ### /database
-mongodb by kubedb recipes
+mongodb recipe by kubedb
