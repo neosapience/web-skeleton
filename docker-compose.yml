@@ -22,6 +22,7 @@ services:
     command: gunicorn --log-level=debug -k gevent
     environment:
       - SECRET_KEY_FILE=/run/secrets/api_secret
+      - MYAPP_API_VERSION=neosapience/appname-api:dev
     depends_on:
       - mongo
       - redis

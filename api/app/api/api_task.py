@@ -1,4 +1,4 @@
-from .bp import api_bp
+from .bp import api_bp, custom_abort
 from task.mytask import req_url
 
 from flask import jsonify, request, abort, current_app
@@ -9,7 +9,7 @@ from celery.result import AsyncResult
 def task_post():
     data = request.get_json(force=True)
     if 'task' not in data:
-        abort(400)
+        custom_abort(400, 'task not in data', 'params/invalid')
 
     myapp = current_app
     db = myapp.extensions['pymongo']['MONGO'][1]
@@ -20,7 +20,7 @@ def task_post():
     if doc_result.acknowledged:
         return jsonify({'result': str(doc_result.inserted_id)})
     else:
-        abort(400)
+        custom_abort(400, 'db insert error', 'db/insert')
 
 
 @api_bp.route('/tasks', methods=['GET'])

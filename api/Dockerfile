@@ -26,4 +26,7 @@ RUN apk add tzdata \
 COPY . .
 EXPOSE 5000
 
+ARG MYAPP_API_VERSION
+ENV MYAPP_API_VERSION=$MYAPP_API_VERSION
+
 ENTRYPOINT ["./docker-entrypoint.sh"]
