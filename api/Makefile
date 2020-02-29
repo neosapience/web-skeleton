@@ -1,5 +1,5 @@
 name := neosapience/appname-api
-tag := 0.0.1
+tag := v0.0.1
 pwd := $(shell pwd)
 
 
