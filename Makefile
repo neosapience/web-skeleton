@@ -21,7 +21,7 @@ build:
 	@make -C api build
 	@make -C frontend build
 
-dist:
+build-dist:
 	@make -C api build-dist
 	@make -C frontend build-dist
 
