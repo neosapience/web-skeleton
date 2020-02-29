@@ -28,7 +28,7 @@ services:
       - redis
 
   worker:
-    image: appname-api:dev
+    image: neosapience/appname-ui:dev
     command: celery -A task worker
     environment:
       - SECRET_KEY_FILE=/run/secrets/api_secret
@@ -39,7 +39,7 @@ services:
     image: mongo-express
 
   worker_monitor:
-    image: appname-api:dev
+    image: neosapience/appname-ui:dev
     command: "celery -A task flower"
     environment:
       - SECRET_KEY_FILE=/run/secrets/api_secret
