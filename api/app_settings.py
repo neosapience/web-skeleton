@@ -2,9 +2,13 @@ import os
 
 
 def read_secret_key():
-    with open(os.environ.get('SECRET_KEY_FILE'), 'rt') as f:
-        return f.read()
-    raise RuntimeError('cannot read SECRET_KEY_FILE')
+    app_secret = os.environ.get('APP_SECRET_KEY')
+    if not app_secret:
+        with open(os.environ.get('SECRET_KEY_FILE'), 'rt') as f:
+            app_secret = f.read()
+    if not app_secret:
+        raise RuntimeError('cannot read SECRET_KEY_FILE or APP_SECRET_KEY')
+    return app_secret
 
 
 class Config(object):

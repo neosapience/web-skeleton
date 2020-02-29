@@ -22,7 +22,8 @@ services:
     command: gunicorn --log-level=debug -k gevent
     environment:
       - SECRET_KEY_FILE=/run/secrets/api_secret
-      - MYAPP_API_VERSION=neosapience/appname-api:dev
+    env_file: 
+      - api.env
     depends_on:
       - mongo
       - redis
@@ -30,8 +31,8 @@ services:
   worker:
     image: neosapience/appname-ui:dev
     command: celery -A task worker
-    environment:
-      - SECRET_KEY_FILE=/run/secrets/api_secret
+    env_file: 
+      - api.env
     depends_on:
       - redis
 
@@ -41,5 +42,5 @@ services:
   worker_monitor:
     image: neosapience/appname-ui:dev
     command: "celery -A task flower"
-    environment:
-      - SECRET_KEY_FILE=/run/secrets/api_secret
+    env_file: 
+      - api.env

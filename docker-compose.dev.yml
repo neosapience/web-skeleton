@@ -16,21 +16,17 @@ services:
   api:
     volumes:
       - ./api:/code
-      - ./secrets/api_secret_dev:/run/secrets/api_secret
     ports:
       - 5000:5000
 
   worker:
     volumes:
       - ./api:/code
-      - ./secrets/api_secret_dev:/run/secrets/api_secret
 
   mongo-express:
     ports:
       - 8081:8081
 
   worker_monitor:
-    volumes:
-      - ./secrets/api_secret_dev:/run/secrets/api_secret
     ports:
       - 5555:5555
