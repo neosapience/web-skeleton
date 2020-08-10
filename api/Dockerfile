@@ -1,7 +1,9 @@
-FROM python:3.6.10-alpine3.11 as builder
+FROM python:3.6.11-alpine3.12 as builder
 
 RUN apk update && apk add --no-cach \
     build-base \
+    libffi-dev \
+    openssl-dev \
     && rm -rf /var/cache/apk/*
 
 RUN pip install gevent
@@ -10,7 +12,7 @@ RUN cp -r /usr/local/lib/python3.6/site-packages/gevent* .
 RUN cp -r /usr/local/lib/python3.6/site-packages/greenlet* .
 
 
-FROM python:3.6.10-alpine3.11
+FROM python:3.6.11-alpine3.12
 COPY --from=builder /tmp/site-packages /usr/local/lib/python3.6/site-packages
 
 WORKDIR /code

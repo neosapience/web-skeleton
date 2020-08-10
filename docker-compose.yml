@@ -32,7 +32,7 @@ services:
       - redis
 
   worker:
-    image: neosapience/appname-ui:dev
+    image: neosapience/appname-api:dev
     command: celery -A task worker
     env_file: 
       - api.env
@@ -43,7 +43,7 @@ services:
     image: mongo-express
 
   worker_monitor:
-    image: neosapience/appname-ui:dev
+    image: neosapience/appname-api:dev
     command: "celery -A task flower"
     env_file: 
       - api.env
